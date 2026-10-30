@@ -1,0 +1,14 @@
+{
+  "users": [
+    {
+      "username": "ledger-clerk",
+      "role": "clerk",
+      "password": "lab-clerk-drawer-17"
+    },
+    {
+      "username": "night-audit",
+      "role": "admin",
+      "password": "lab-night-audit-88"
+    }
+  ]
+}

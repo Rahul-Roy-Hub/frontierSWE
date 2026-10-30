@@ -1,0 +1,9 @@
+The workspace at `/app` needs a crash-safe embedded SQL engine. Read `/app/spec.md` and implement that contract in `/app/pagestore.py`. The file there now is a stub that exits 1. Replace it. Use only the Python 3 standard library already installed in the image.
+
+The program is invoked as `python3 /app/pagestore.py --db <directory> --file <script.sql>`. It must create the database directory, accept the SQL subset in the spec, and print TSV results on stdout. `INT` and `TEXT` are the only types. `WHERE` supports `AND`, `OR`, `NOT`, comparisons, and parentheses, with the precedence in the spec. `ORDER BY` sorts one column and is stable. `BEGIN`, `COMMIT`, and `ROLLBACK` work as specified, and a statement outside those commands commits itself when it succeeds. A failed statement must not change committed data. If the script ends with a transaction still open, roll it back.
+
+The database directory contains `pages` and `wal`. `pages` is 4096-byte pages whose first page starts with the magic `PSQ1`. `wal` is a sequence of length-prefixed frames protected by a zlib CRC-32. On startup, replay only transactions that have a `COMMIT` frame. Stop at a torn tail or a bad checksum and keep the committed rows. A well-formed frame that was never committed, including a lone `INSERT`, must not become visible.
+
+Check your work with `python3 /app/selfcheck.py`. It runs the scripts in `/app/public` and prints how many matched. That number should rise as the engine gets closer to the spec. The graded scripts use other tables, other predicates, empty results, rejected statements, a torn tail appended to `wal`, and an extra uncommitted frame. Matching only the public files is not enough.
+
+Leave `/app/spec.md`, `/app/selfcheck.py`, and `/app/public` in place. The engine has to keep working after the process that wrote a transaction has exited, because the next invocation reopens the same directory.

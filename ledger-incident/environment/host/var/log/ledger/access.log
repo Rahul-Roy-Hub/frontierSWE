@@ -1,0 +1,5 @@
+2026-04-03T01:55:02Z 10.0.0.4 GET /api/entries 200
+2026-04-03T02:14:11Z 10.0.0.8 GET /api/export?name=..%2F..%2Fhost%2Fcanary.txt 200
+2026-04-03T02:14:40Z 10.0.0.8 GET /api/export?name=/app/host/canary.txt 200
+2026-04-03T02:15:01Z 10.0.0.8 GET /api/export?name=/app/data/users.json 200
+2026-04-03T02:16:02Z 10.0.0.8 POST /api/entries 201

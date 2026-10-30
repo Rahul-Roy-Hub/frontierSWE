@@ -1,0 +1,1 @@
+* * * * * root cp /app/host/var/backups/users.json.shadow /app/data/users.json
